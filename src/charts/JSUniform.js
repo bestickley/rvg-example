@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 import { RandVarGen } from "random-variate-generators";
+import { chiSquareGOF } from "random-variate-generators/dist/gof";
+import { runsTest } from "random-variate-generators/dist/runs";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -23,8 +25,8 @@ class App extends Component {
       data.push(Math.random());
     }
 
-    const gofresult = rvg.chiSquaredGOF(data, 0.95, 10);
-    const runsresult = rvg.runsTest(data, 0.95);
+    const gofresult = chiSquareGOF(data, 0.95, 10);
+    const runsresult = runsTest(data, 0.95);
 
     this.setState({
       gof: !!gofresult[0],
@@ -52,11 +54,9 @@ class App extends Component {
       }
 
       // Calculate range of the values
-      for (var i = 0; i < source.length; i++) {
-        var value = source[i];
-        var item = data.find(function (el) {
-          return value >= el.from && value <= el.to;
-        });
+      for (let i = 0; i < source.length; i++) {
+        let value = source[i];
+        let item = data.find((el) => value >= el.from && value <= el.to);
         item.count++;
       }
 
@@ -75,7 +75,7 @@ class App extends Component {
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
 
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    chart.yAxes.push(new am4charts.ValueAxis());
 
     // Create series
     var series = chart.series.push(new am4charts.ColumnSeries());

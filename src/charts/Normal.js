@@ -43,11 +43,9 @@ class App extends Component {
       }
 
       // Calculate range of the values
-      for (var i = 0; i < source.length; i++) {
-        var value = source[i];
-        var item = data.find(function (el) {
-          return value >= el.from && value <= el.to;
-        });
+      for (let i = 0; i < source.length; i++) {
+        let value = source[i];
+        let item = data.find((el) => value >= el.from && value <= el.to);
         if (item) item.count++;
       }
 
@@ -66,7 +64,7 @@ class App extends Component {
     categoryAxis.renderer.grid.template.location = 0;
     categoryAxis.renderer.minGridDistance = 30;
 
-    var valueAxis = chart.yAxes.push(new am4charts.ValueAxis());
+    chart.yAxes.push(new am4charts.ValueAxis());
 
     // Create series
     var series = chart.series.push(new am4charts.ColumnSeries());
