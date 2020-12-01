@@ -1,7 +1,5 @@
 import React, { Component } from "react";
-import { RandVarGen } from "random-variate-generators";
-import { chiSquareGOF } from "random-variate-generators/dist/gof";
-import { runsTest } from "random-variate-generators/dist/runs";
+import { chiSquareGOF, runsTest } from "random-variate-generators";
 import * as am4core from "@amcharts/amcharts4/core";
 import * as am4charts from "@amcharts/amcharts4/charts";
 import am4themes_animated from "@amcharts/amcharts4/themes/animated";
@@ -12,13 +10,11 @@ class App extends Component {
   state = {
     gof: false,
     runs: false,
-    n: 1000,
+    n: 1000
   };
 
   componentDidMount() {
     am4core.useTheme(am4themes_animated);
-
-    const rvg = new RandVarGen();
 
     let data = [];
     for (var idx = 0; idx < this.state.n; idx++) {
@@ -30,7 +26,7 @@ class App extends Component {
 
     this.setState({
       gof: !!gofresult[0],
-      runs: !!runsresult[0],
+      runs: !!runsresult[0]
     });
 
     var maxCols = 10;
@@ -49,14 +45,14 @@ class App extends Component {
         data.push({
           from: from,
           to: to,
-          count: 0,
+          count: 0
         });
       }
 
       // Calculate range of the values
       for (let i = 0; i < source.length; i++) {
         let value = source[i];
-        let item = data.find((el) => value >= el.from && value <= el.to);
+        let item = data.find(el => value >= el.from && value <= el.to);
         item.count++;
       }
 
@@ -81,8 +77,7 @@ class App extends Component {
     var series = chart.series.push(new am4charts.ColumnSeries());
     series.dataFields.valueY = "count";
     series.dataFields.categoryX = "from";
-    series.columns.template.tooltipText =
-      "{from} - {to}\n[bold]Count: {count}[/]";
+    series.columns.template.tooltipText = "{from} - {to}\n[bold]Count: {count}[/]";
   }
 
   componentWillUnmount() {
@@ -100,7 +95,7 @@ class App extends Component {
           display: "flex",
           flexDirection: "column",
           alignItems: "center",
-          fontFamily: "sans-serif",
+          fontFamily: "sans-serif"
         }}
       >
         <h1 style={{ fontSize: "25px", fontWeight: "300" }}>
@@ -113,7 +108,7 @@ class App extends Component {
             fontWeight: "200",
             letterSpacing: "0.8px",
             width: "650px",
-            textAlign: "center",
+            textAlign: "center"
           }}
         >
           This set of {n} PRNs produced by Math.random()
